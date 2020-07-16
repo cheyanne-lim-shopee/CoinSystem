@@ -1,0 +1,23 @@
+syntax="proto3";
+
+package main;
+
+enum Query{
+  ADD = 0;
+  DEDUCT = 1;
+  BALANCE = 2;
+  QUIT = 3;
+}
+
+message Request {
+  Query query = 1;
+  repeated int64 userID = 2;
+  int64 coins = 3; // not applicable for balance enquiry
+}
+
+message Response {
+  Query query = 1;
+  bool success = 2;
+  map<int64, int64> balance = 3;
+  map<int64, string> last_updated = 4;
+}
