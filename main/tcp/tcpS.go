@@ -21,19 +21,16 @@ func StartServer(port string, db *sql.DB) {
 	}
 
 	for {
-		// accept new connection
 		conn, err := l.Accept()
 		if err != nil {
 			log.Fatal("tcp server accept error", err)
 		}
 
-		// spawn off goroutine to able to accept new connections
 		go handleConnection(conn, db)
 	}
 }
 
 func handleConnection(conn net.Conn, db *sql.DB) {
-	// read buffer from client after enter is hit
 	data, err := ReadFromClient(conn)
 
 	if err != nil || string(data) == "exit" {
@@ -62,7 +59,6 @@ func handleConnection(conn net.Conn, db *sql.DB) {
 		WriteToClient(response, conn)
 	}
 
-	// recursive func to handle io.EOF for random disconnects
 	handleConnection(conn, db)
 }
 

@@ -193,17 +193,3 @@ func sqlIntConv(array []int64) string {
 	result.WriteString(")")
 	return result.String()
 }
-
-func main() {
-	db := DbSetup()
-
-	request := &p.Request{
-		Query:  p.Query_BALANCE,
-		UserID: []int64{123456, 197639, 678532, 557094},
-		Coins:  -1,
-	}
-
-	result := Balance(db, request)
-
-	fmt.Println("Result: ", result.GetBalance())
-}
